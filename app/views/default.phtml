@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="sv-se">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css"> -->
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet" type="text/css">
+        <?php //echo $this->tag->stylesheetLink( "css/normalize.css" ); ?>
+        <?php echo $this->tag->stylesheetLink( "css/bootstrap.min.css" ); ?>
+        <?php echo $this->tag->stylesheetLink( "css/style.css" ); ?>
+        <?php echo $this->tag->getTitle(); ?>
+    </head>
+    <body>
+        <header class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-2">
+                        <div class="logo"><a href="<?php echo $this->url->get( "" ); ?>">Simoxbook</a></div>
+                    </div>
+                    <div class="col-md-6">
+                        <?php $this->elements->getMenu(); ?>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <?php echo $this->flash->output(); ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <main class="main">
+                        <?php echo $this->getContent(); ?>
+                    </main>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="footer"></footer>
+
+        <?php echo $this->tag->javascriptInclude( "http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js", false ); ?>
+        <?php echo $this->tag->javascriptInclude( "js/bootstrap.min.js" ); ?>
+
+    </body>
+</html>

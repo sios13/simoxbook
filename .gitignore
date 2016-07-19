@@ -1,0 +1,4 @@
+/app/config/secrets.php
+/app/cache/
+/vendor
+.htaccess

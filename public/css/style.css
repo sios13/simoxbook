@@ -1,0 +1,21 @@
+html {}
+
+body {
+    font-family:'Noto Sans',sans-serif;
+    font-size:18px;
+    background-color:lightblue;
+}
+
+.successMessage {margin-top:20px; padding:10px 0; background-color:rgb(57,230,79); text-align:center;}
+.errorMessage {margin-top:20px; padding:10px 0; background-color:red; text-align:center;}
+
+.header {background-color:orange; color:white;}
+.header a {color:white;}
+
+.logo {padding:10px 0; font-size:28px; text-align:center;}
+.logo a {text-decoration:none;}
+
+.menu {padding:18px 0; margin:0; text-align:center;}
+.menu__item {display:inline-block; margin:0 15px;}
+
+.main {margin-top:20px; padding:15px; background-color:white;}
