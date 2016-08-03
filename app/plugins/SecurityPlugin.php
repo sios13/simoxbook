@@ -15,42 +15,44 @@ class SecurityPlugin extends Plugin
         $acl->addRole( "Guest" );
         $acl->addRole( "User" );
         
-        $private_resources = array(
+        $private_routes = array(
             "index" => array("secret"),
             "session" => array("logout"),
             "user" => array("profile")
         );
-        foreach ( $private_resources as $resource => $action )
+        
+        foreach ( $private_routes as $controller_name => $action_name )
         {
-            $acl->addResource( $resource, $action );
+            $acl->addRoutes( $controller_name, $action_name );
         }
         
-        $public_resources = array(
+        $public_routes = array(
             "index" => array("index", "notFound"),
             "poll" => array("index", "show", "vote"),
             "session" => array("login", "create"),
         );
-        foreach ( $public_resources as $resource => $action )
+        
+        foreach ( $public_routes as $controller_name => $action_name )
         {
-            $acl->addResource( $resource, $action );
+            $acl->addRoutes( $controller_name, $action_name );
         }
         
         // Give both roles permission to public resources
-        foreach( $public_resources as $controller => $actions )
+        foreach( $public_routes as $controller_name => $action_names )
         {
-            foreach ( $actions as $action )
+            foreach ( $action_names as $action_name )
             {
-                $acl->allow( "Guest", $controller, $action );
-                $acl->allow( "User", $controller, $action );
+                $acl->allow( "Guest", $controller_name, $action_name );
+                $acl->allow( "User", $controller_name, $action_name );
             }
         }
         
         // Give only users access to private resources
-        foreach( $private_resources as $controller => $actions )
+        foreach( $private_routes as $controller_name => $action_names )
         {
-            foreach( $actions as $action )
+            foreach( $action_names as $action_name )
             {
-                $acl->allow( "User", $controller, $action );
+                $acl->allow( "User", $controller_name, $action_name );
             }
         }
         
@@ -70,12 +72,12 @@ class SecurityPlugin extends Plugin
             $role = "User";
         }
         
-        $controller = $dispatcher->getControllerName();
-        $action = $dispatcher->getActionName();
+        $controller_name = $dispatcher->getControllerName();
+        $action_name = $dispatcher->getActionName();
         
         $acl = $this->_getAcl();
         
-        $allowed = $acl->isAllowed( $role, $controller, $action );
+        $allowed = $acl->isAllowed( $role, $controller_name, $action_name );
         
         if ( $allowed != AclList::ALLOW )
         {

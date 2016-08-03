@@ -1,4 +1,5 @@
 /app/config/secrets.php
 /app/cache/
 /vendor
+composer.lock
 .htaccess

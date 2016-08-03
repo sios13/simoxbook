@@ -1,6 +1,6 @@
 {
     "require": {
         "gajus/dindent": "2.0.*",
-        "sios13/simox": "dev-master"
+        "sios13/simox": "*@beta"
     }
 }

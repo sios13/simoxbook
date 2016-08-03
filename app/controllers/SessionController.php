@@ -71,8 +71,8 @@ class SessionController extends ControllerBase
         if ( $auth )
         {
             $this->session->destroy();
-            $this->flash->success( "Du har loggat ut." );
-            $this->redirect( "" );
+            //$this->flash->success( "Du har loggat ut." );
+            $this->response->redirect( array("controller" => "index", "action" => "index") );
         }
     }
 }

@@ -24,16 +24,20 @@ use Simox\Config;
 try {
     require( __DIR__ . "/../vendor/autoload.php" );
     
-    $loader = new Loader();
-    $loader->registerDirs( array(
-        "../app/controllers",
-        "../app/models",
-        "../app/plugins",
-        "../app/library"
-    ) );
-    $loader->register();
-    
     $simox = new Simox();
+    
+    $simox->set( "loader", function() {
+        $loader = new Loader();
+        
+        $loader->registerDirs( array(
+            "app/controllers",
+            "app/models",
+            "app/plugins",
+            "app/library"
+        ) );
+        
+        return $loader;
+    } );
     
 	$simox->set( "view", function() {
 		$view = new View();
@@ -48,7 +52,7 @@ try {
 	
 	$simox->set( "url", function() {
 		$url = new Url();
-		$url->setBaseUri( "simoxbook" );
+		$url->setUriPrefix( "simoxbook" );
         return $url;
 	} );
 
@@ -65,7 +69,7 @@ try {
         return $router;
     } );
     
-    $config = new Config( include( "/../app/config/secrets.php" ) );
+    $config = new Config( include( __DIR__ . "/../app/config/secrets.php" ) );
     
     $simox->set( "database", function() use ($config) {
         /*

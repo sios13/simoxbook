@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "288d97c29a7e711c6ba93dc4dcc1c721",
-    "content-hash": "c8d47745e513d81468897f2793451a42",
+    "hash": "c1c76ca3e6f875d06b8ef74b7b87e366",
+    "content-hash": "ce6db79f468532f4e5e4709c0a29824e",
     "packages": [
         {
             "name": "gajus/dindent",
@@ -54,16 +54,16 @@
         },
         {
             "name": "sios13/simox",
-            "version": "dev-master",
+            "version": "v1.0.1-beta",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sios13/simox.git",
-                "reference": "fe101edc78683863222b1829a213702369d2d97b"
+                "reference": "4a73b4694f4b532ad331ca1668eb09bd44bb8845"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sios13/simox/zipball/fe101edc78683863222b1829a213702369d2d97b",
-                "reference": "fe101edc78683863222b1829a213702369d2d97b",
+                "url": "https://api.github.com/repos/sios13/simox/zipball/4a73b4694f4b532ad331ca1668eb09bd44bb8845",
+                "reference": "4a73b4694f4b532ad331ca1668eb09bd44bb8845",
                 "shasum": ""
             },
             "require": {
@@ -76,8 +76,7 @@
                         "src/",
                         "src/Config/",
                         "src/Database/",
-                        "src/Controller/",
-                        "src/Dispatcher"
+                        "src/Router/"
                     ]
                 }
             },
@@ -98,14 +97,14 @@
                 "framework",
                 "mvc"
             ],
-            "time": "2016-07-19 09:54:07"
+            "time": "2016-08-03 09:53:53"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "sios13/simox": 20
+        "sios13/simox": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,
