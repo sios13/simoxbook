@@ -6,9 +6,10 @@
 
 define( "SIMOX_START", microtime(true) );
 
-ini_set("display_errors", 1); 
-error_reporting(E_ALL);
+ini_set( "display_errors", 1 );
+error_reporting( E_ALL );
 
+use Simox\DI;
 use Simox\Simox;
 use Simox\Loader;
 use Simox\Url;
@@ -23,107 +24,123 @@ use Simox\Config;
 
 try {
     require( __DIR__ . "/../vendor/autoload.php" );
-    
-    $simox = new Simox();
-    
-    $simox->set( "loader", function() {
+
+    $di = new DI();
+
+    $di->set( "loader", function() {
         $loader = new Loader();
-        
+
         $loader->registerDirs( array(
             "app/controllers",
             "app/models",
             "app/plugins",
             "app/library"
         ) );
-        
+
         return $loader;
     } );
-    
-	$simox->set( "view", function() {
-		$view = new View();
-        
-		$view->setOutputCallable( function($output) {
-            $indenter = new \Gajus\Dindent\Indenter();
-            return $indenter->indent( $output );
-        } );
-        
-        return $view;
-	} );
-	
-	$simox->set( "url", function() {
-		$url = new Url();
-		$url->setUriPrefix( "simoxbook" );
-        return $url;
-	} );
 
-    $simox->set( "router", function() {
+    $di->set( "view", function() {
+        $events_manager = new EventsManager();
+
+        $events_manager->attach( "dispatch:afterRender", function($view) {
+            $indenter = new \Gajus\Dindent\Indenter();
+
+            return $view->setContent( $indenter->indent( $view->getContent() ) );
+        } );
+
+        $view = new View();
+
+        $view->setEventsManager( $events_manager );
+
+        return $view;
+    } );
+
+    $di->set( "url", function() {
+        $url = new Url();
+        $url->setUriPrefix( "simoxbook" );
+        return $url;
+    } );
+
+    $di->set( "router", function() use ($di) {
         $router = new Router();
+
         $router->addRoute( "/", "IndexController#indexAction" );
+        $router->addRoute( "/forum", "ForumController#indexAction" );
         $router->addRoute( "/poll", "PollController#indexAction" );
         $router->addRoute( "/poll/show/{param}", "PollController#showAction" );
         $router->addRoute( "/poll/vote/{param}", "PollController#voteAction" );
+        $router->addRoute( "/poll/add/{param}", "PollController#addAction" );
         $router->addRoute( "/create", "SessionController#createAction" );
         $router->addRoute( "/login", "SessionController#loginAction" );
         $router->addRoute( "/logout", "SessionController#logoutAction" );
         $router->addRoute( "/profile", "UserController#profileAction" );
+
         return $router;
     } );
-    
+
     $config = new Config( include( __DIR__ . "/../app/config/secrets.php" ) );
-    
-    $simox->set( "database", function() use ($config) {
-        /*
+
+    $di->set( "database", function() use ($config) {
         $connection = new SqliteConnection( array(
             "db_name" => $config["db"]["db_name"]
         ) );
-        */
+        /*
         $connection = new MysqlConnection( array(
             "db_name"  => $config->db->db_name,
             "host"     => $config["db"]["host"],
             "username" => $config["db"]["username"],
             "password" => $config["db"]["password"]
         ) );
-        
+        */
         return $connection;
     } );
-	
-    $simox->set( "dispatcher", function() {
+
+    $di->set( "dispatcher", function() {
         $events_manager = new EventsManager();
-        
+
         $events_manager->attach( "dispatch:beforeExecuteRoute", new SecurityPlugin() );
-        
+
         $events_manager->attach( "dispatch:beforeException", function($dispatcher, $params) {
             $exception = $params["exception"];
-            switch ($exception->getCode())
+
+            switch ( $exception->getCode() )
             {
                 case Dispatcher::EXCEPTION_CONTROLLER_NOT_FOUND:
                 case Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
+                case Dispatcher::EXCEPTION_ROUTE_NOT_SET:
                     $dispatcher->forward( array(
                         "controller" => "index",
                         "action" => "notFound"
                     ) );
                     return false;
             }
+
             return true;
         } );
-        
+
         $dispatcher = new Dispatcher();
+
         $dispatcher->setEventsManager( $events_manager );
-        
+
         return $dispatcher;
     } );
-    
-    $simox->set( "session", function() {
+
+    $di->set( "session", function() {
         $session = new Session();
+
         $session->start();
+
         return $session;
     } );
-    
-    $simox->set( "elements", function() {
+
+    $di->set( "elements", function() {
         return new Elements();
     } );
-    
-    echo $simox->handle()->getContent();
+
+    $simoxbook = new Simox( $di );
+
+    echo $simoxbook->handle()->getContent();
 
 } catch( Exception $e ) {
     echo "SimoxException: ", $e->getMessage();
