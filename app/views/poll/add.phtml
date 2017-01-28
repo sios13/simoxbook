@@ -1,0 +1,11 @@
+<h1>Lägg till alternativ</h1>
+
+<form method="post">
+    <p>
+        Name <input type="text" name="name">
+    </p>
+    <p>
+        <input type="submit" value="Spara">
+        <?php echo $this->tag->linkTo( "poll", "Avbryt" ); ?>
+    </p>
+</form>
