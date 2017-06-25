@@ -5,12 +5,12 @@
     <tr>
         <td><?php echo $option->name ?></td>
         <td><?php echo $option->number_votes ?></td>
-        <td><?php echo $this->tag->linkTo( "poll/vote/" . $option->id, "Rösta" ); ?></td>
+        <td><?php echo $this->tag->linkTo( "/poll/vote/" . $option->id, "Rösta" ); ?></td>
     </tr>
     <?php endforeach; ?>
 </table>
 
 <p>
-    <?php echo $this->tag->linkTo( "poll/add/" . $this->poll->id, "Lägg till alternativ" ); ?> -
-    <?php echo $this->tag->linkTo( "poll", "Gå tillbaka" ); ?>
+    <?php echo $this->tag->linkTo( "/poll/add/" . $this->poll->id, "Lägg till alternativ" ); ?> -
+    <?php echo $this->tag->linkTo( "/poll", "Gå tillbaka" ); ?>
 </p>

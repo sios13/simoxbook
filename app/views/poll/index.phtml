@@ -2,6 +2,6 @@
 
 <ul>
     <?php foreach ( $this->polls as $poll ): ?>
-    <li><?php echo $this->tag->linkTo( "poll/show/" . $poll->id, $poll->question ); ?></li>
+    <li><?php echo $this->tag->linkTo( "/poll/show/" . $poll->id, $poll->question ); ?></li>
     <?php endforeach; ?>
 </ul>

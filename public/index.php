@@ -58,11 +58,11 @@ try {
 
     $di->set( "url", function() {
         $url = new Url();
-        $url->setUriPrefix( "simoxbook" );
+        $url->setUriPrefix( "/simoxbook" );
         return $url;
     } );
 
-    $di->set( "router", function() use ($di) {
+    $di->set( "router", function() {
         $router = new Router();
 
         $router->addRoute( "/", "IndexController#indexAction" );
