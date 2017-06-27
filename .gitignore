@@ -2,4 +2,3 @@
 /app/cache/
 /vendor
 composer.lock
-.htaccess
