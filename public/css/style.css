@@ -1,10 +1,6 @@
 html {}
 
-body {
-    font-family:'Noto Sans',sans-serif;
-    font-size:18px;
-    background-color:lightblue;
-}
+body {font-family:"Noto Sans",sans-serif; font-size:18px; background-color:lightblue;}
 
 .successMessage {margin-top:20px; padding:10px 0; background-color:rgb(57,230,79); text-align:center;}
 .errorMessage {margin-top:20px; padding:10px 0; background-color:red; text-align:center;}
@@ -18,4 +14,8 @@ body {
 .menu {padding:18px 0; margin:0; text-align:center;}
 .menu__item {display:inline-block; margin:0 15px;}
 
-.main {margin-top:20px; padding:15px; background-color:white;}
+.main {margin-top:20px; padding-top:20px; padding-bottom:20px; background-color:white;}
+
+@media only screen and (max-width : 768px) {
+    .menu__item {display:block; padding:10px 0;}
+}

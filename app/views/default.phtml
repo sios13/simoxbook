@@ -17,7 +17,7 @@
                     <div class="col-md-2 col-md-offset-2">
                         <div class="logo"><a href="<?php echo $this->url->get( "/" ); ?>">Simoxbook</a></div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                         <?php $this->elements->getMenu(); ?>
                     </div>
                 </div>
@@ -34,10 +34,8 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-md-10 col-md-offset-1">
-                    <main class="main">
-                        <?php echo $this->getContent(); ?>
-                    </main>
+                <div class="main col-md-10 col-md-offset-1">
+                    <?php echo $this->getContent(); ?>
                 </div>
             </div>
         </div>

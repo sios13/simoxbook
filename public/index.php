@@ -146,4 +146,4 @@ try {
     echo "SimoxException: ", $e->getMessage();
 }
 
-echo "<p>Time to run: " . (microtime(true) - SIMOX_START) . "</p>";
+// echo "<p>Time to run: " . (microtime(true) - SIMOX_START) . "</p>";
